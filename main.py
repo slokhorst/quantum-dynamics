@@ -14,8 +14,9 @@ T = np.arange(0, dt*Nt, step=dt, dtype=float)
 
 def update(psi0, V, dx, dt):
 	A = np.exp(-dt*V)
-	B = np.exp(-dt*mom**2/2)
-	psi1 = np.fft.ifft(B*np.fft.fft(A*psi0))
+	B = np.exp(-dt*(mom-1/Lx/2)**2/2)
+
+	psi1 = np.fft.ifft(np.fft.ifftshift(B*np.fft.fftshift(np.fft.fft(A*psi0))))
 	return psi1
 
 def wavepacket(x, sigma0, p0):
@@ -26,7 +27,8 @@ V = 0*X#(X-1)**2
 
 psi = np.ndarray([Nt,Nx], dtype=complex)
 #psi[0] = 1/(X-Lx/2)
-psi[0] = wavepacket(X-Lx/2, 0.1, 10)
+psi[0] = wavepacket(X-Lx/2, 0.1, 1)
+#psi[0] = (np.absolute(X-Lx/2)<0.1)
 for i in range(1,Nt):
 	psi[i] = update(psi[i-1], V, dx, dt)
 
