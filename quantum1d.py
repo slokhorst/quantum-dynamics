@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as ani
 from numba import jit
-import time
 
 Lx = 2
 Nx = 1024

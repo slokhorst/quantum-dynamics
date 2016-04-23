@@ -1,8 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import pyplot as plt
-from matplotlib import animation
+import matplotlib.animation as ani
 from numba import jit
 
 Lx = 2
@@ -78,5 +76,5 @@ def animate(i):
 	im2.set_array(np.square(np.real(psi))+V)
 	fig.canvas.draw()
 
-anim = animation.FuncAnimation(fig, animate, interval=10, blit=False)
+anim = ani.FuncAnimation(fig, animate, interval=10, blit=False)
 plt.show()
